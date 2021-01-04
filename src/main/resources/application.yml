@@ -1,0 +1,16 @@
+server:
+  port: 8081
+  context-path: /text
+
+spring:
+  jackon:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    url: jdbc:mysql://47.103.37.162:3306/good_start_record?autoReconnect=true&useUnicode=true&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: seeksdata@123
+    driver-class-name: com.mysql.jdbc.Driver
+
+swagger:
+  enable: true
