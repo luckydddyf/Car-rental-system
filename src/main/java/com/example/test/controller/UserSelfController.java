@@ -1,5 +1,8 @@
 package com.example.test.controller;
 
+import com.example.test.entity.dto.UserAlertDTO;
+import com.example.test.entity.dto.UserInputDTO;
+import com.example.test.entity.dto.UserSelfAlertDTO;
 import com.example.test.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,13 +26,13 @@ public class UserSelfController {
 
     @PostMapping("/add")
     @ApiOperation("用户注册")
-    public void addUsers(){
-        userService.addUser();
+    public void addUsers(UserInputDTO inputDTO){
+        userService.addUser(inputDTO);
     }
 
     @PostMapping("/alert")
     @ApiOperation("修改个人信息")
-    public void alertUserSelf(){
-        userService.alertUserSelf();
+    public void alertUserSelf(UserSelfAlertDTO alertDTO){
+        userService.alertUserSelf(alertDTO);
     }
 }

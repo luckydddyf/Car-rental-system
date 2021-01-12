@@ -6,13 +6,12 @@ import lombok.Data;
 /**
  * @Description
  * @Author luckydddyf
- * @Date 2021-01-05 11:38
+ * @Date 2021-01-12 14:01
  */
 @Data
-public class UserAlertDTO {
+public class UserSelfAlertDTO {
 
     @ApiModelProperty("普通用户id")
     private Integer id;
-
 
 }

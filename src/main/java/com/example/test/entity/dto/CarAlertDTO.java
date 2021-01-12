@@ -11,6 +11,9 @@ import lombok.Data;
 @Data
 public class CarAlertDTO {
 
+    @ApiModelProperty("汽车id")
+    private Integer id;
+
     @ApiModelProperty("租金")
     private Integer rent;
 

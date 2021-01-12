@@ -21,6 +21,7 @@ public class CarController {
     @Autowired
     private AdminService adminService;
 
+
     @PostMapping("/add")
     @ApiOperation("新增车辆信息")
     public void addCars(@RequestBody CarInputDTO inputDTO){
@@ -33,7 +34,7 @@ public class CarController {
         adminService.alertCar(alertDTO);
     }
 
-    @PostMapping("/delete/{carId}")
+    @GetMapping("/delete/{carId}")
     @ApiOperation("删除车辆信息")
     public void deleteCars(@PathVariable("carId") Integer carId){
         adminService.deleteCar(carId);

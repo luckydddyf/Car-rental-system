@@ -1,6 +1,6 @@
 server:
   port: 8081
-  context-path: /text
+  context-path: /test
 
 spring:
   jackon:
@@ -12,5 +12,21 @@ spring:
     password: seeksdata@123
     driver-class-name: com.mysql.jdbc.Driver
 
+logging:
+  config: classpath:logback.xml
+
 swagger:
   enable: true
+
+#mybatis-plus:
+#  global-config:
+#    id-type: 0
+#    db-column-underline: false
+#    refresh-mapper: true
+#  typeEnumsPackage: com.galaxy.**.enums
+#  configuration:
+#    map-underscore-to-camel-case: true
+#    cache-enabled: true
+#    lazyLoadingEnabled: true
+#    multipleResultSetsEnabled: true
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

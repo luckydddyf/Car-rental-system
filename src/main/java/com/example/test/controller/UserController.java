@@ -26,7 +26,7 @@ public class UserController {
         adminService.alertUser(alertDTO);
     }
 
-    @PostMapping("/delete/{userId}")
+    @GetMapping("/delete/{userId}")
     @ApiOperation("/删除普通用户信息")
     public void deleteUsers(@PathVariable("userId") Integer userId){
         adminService.deleteUser(userId);

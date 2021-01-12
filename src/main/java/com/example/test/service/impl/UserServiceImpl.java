@@ -1,5 +1,8 @@
 package com.example.test.service.impl;
 
+import com.example.test.entity.dto.UserAlertDTO;
+import com.example.test.entity.dto.UserInputDTO;
+import com.example.test.entity.dto.UserSelfAlertDTO;
 import com.example.test.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,12 +17,12 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     @Override
-    public void addUser(){
+    public void addUser(UserInputDTO inputDTO){
 
     }
 
     @Override
-    public void alertUserSelf(){
+    public void alertUserSelf(UserSelfAlertDTO alertDTO){
 
     }
 
