@@ -9,9 +9,9 @@
         <relativePath/>
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>test</artifactId>
+    <artifactId>car-rental-system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>test</name>
+    <name>car-rental-system</name>
     <description>租车管理系统</description>
 
     <properties>
