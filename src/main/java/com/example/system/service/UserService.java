@@ -2,6 +2,7 @@ package com.example.system.service;
 
 import com.example.system.entity.dto.gift.FrontGiftPageOutputDTO;
 import com.example.system.entity.dto.gift.GiftPageInputDTO;
+import com.example.system.entity.dto.order.OrderInputDTO;
 import com.example.system.entity.dto.user.UserInputDTO;
 import com.example.system.entity.dto.user.UserSelfAlertDTO;
 import com.example.system.entity.dto.car.CarPageInputDTO;
@@ -42,6 +43,6 @@ public interface UserService {
     /**
      * 在线下单
      */
-    void orderOnline(Integer carId);
+    void orderOnline(OrderInputDTO inputDTO);
 
 }

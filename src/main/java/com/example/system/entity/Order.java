@@ -24,4 +24,10 @@ public class Order {
     @TableField("car_id")
     private Integer carId;
 
+    @TableField("rental_day")
+    private Integer rentalDay;
+
+    @TableField("rental_money")
+    private Integer rentalMoney;
+
 }

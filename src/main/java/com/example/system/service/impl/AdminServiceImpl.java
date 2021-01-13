@@ -18,6 +18,7 @@ import com.example.system.service.AdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void addCar(CarInputDTO inputDTO){
         Car car = new Car();
         car.setName(inputDTO.getName());
@@ -60,6 +62,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void alertCar(CarAlertDTO alertDTO){
         Car car = carMapper.selectById(alertDTO.getId());
         car.setName(alertDTO.getName());
@@ -74,6 +77,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void addGift(GiftInputDTO inputDTO){
         Gift gift = new Gift();
         gift.setName(inputDTO.getName());
@@ -84,6 +88,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void alertGift(GiftAlertDTO alertDTO){
         Gift gift = giftMapper.selectById(alertDTO.getId());
         gift.setName(alertDTO.getName());
