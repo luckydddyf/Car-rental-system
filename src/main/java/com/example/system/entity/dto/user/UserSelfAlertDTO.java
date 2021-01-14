@@ -2,6 +2,9 @@ package com.example.system.entity.dto.user;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @Description
@@ -12,18 +15,23 @@ import lombok.Data;
 public class UserSelfAlertDTO {
 
     @ApiModelProperty("用户id")
+    @NotNull(message = "用户id不能为空")
     private Integer id;
 
     @ApiModelProperty("密码")
+    @NotBlank(message = "密码不能为空")
     private String password;
 
     @ApiModelProperty("姓名")
+    @NotBlank(message = "姓名不能为空")
     private String name;
 
     @ApiModelProperty("性别")
-    private char sex;
+    @NotNull(message = "性别不能为空")
+    private Character sex;
 
     @ApiModelProperty("年龄")
+    @NotNull(message = "年龄不能为空")
     private Integer age;
 
 }

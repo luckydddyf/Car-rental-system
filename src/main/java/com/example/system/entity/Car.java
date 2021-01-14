@@ -35,7 +35,7 @@ public class Car{
     @TableField("rent")
     private Integer rent;
     /**
-     * 汽车状态
+     * 汽车状态|0=未租出|1=已租出
      */
     @TableField("state")
     private Integer state;

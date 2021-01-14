@@ -11,6 +11,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * @Description
  * @Author luckydddyf
@@ -34,13 +36,13 @@ public class GiftController  {
 
     @PostMapping("/add")
     @ApiOperation("套餐发布")
-    public void addGifts(@RequestBody GiftInputDTO inputDTO){
+    public void addGifts(@RequestBody @Valid GiftInputDTO inputDTO){
         adminService.addGift(inputDTO);
     }
 
     @PostMapping("/alert")
     @ApiOperation("套餐修改")
-    public void alertGifts(@RequestBody GiftAlertDTO alertDTO){
+    public void alertGifts(@RequestBody @Valid GiftAlertDTO alertDTO){
         adminService.alertGift(alertDTO);
     }
 

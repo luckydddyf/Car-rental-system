@@ -48,6 +48,4 @@ public class Gift{
     @TableField("end_time")
     private Date endTime;
 
-
-
 }

@@ -24,7 +24,7 @@ public class UserController {
 
     @PostMapping("/list")
     @ApiOperation("普通用户列表")
-    public FrontUserPageOutputDTO list(UserPageInputDTO inputDTO){
+    public FrontUserPageOutputDTO list(@RequestBody UserPageInputDTO inputDTO){
         return adminService.userList(inputDTO);
     }
 

@@ -11,6 +11,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * @Description
  * @Author luckydddyf
@@ -35,13 +37,13 @@ public class CarController {
 
     @PostMapping("/add")
     @ApiOperation("新增车辆信息")
-    public void addCars(@RequestBody CarInputDTO inputDTO){
+    public void addCars(@RequestBody @Valid CarInputDTO inputDTO){
         adminService.addCar(inputDTO);
     }
 
     @PostMapping("/alert")
     @ApiOperation("修改车辆信息")
-    public void alertCars(@RequestBody CarAlertDTO alertDTO){
+    public void alertCars(@RequestBody @Valid CarAlertDTO alertDTO){
         adminService.alertCar(alertDTO);
     }
 
