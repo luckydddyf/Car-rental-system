@@ -1,4 +1,4 @@
-package com.example.system.util;
+package com.example.system;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -7,11 +7,16 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @Description 解决跨域问题
+ * @Author luckydddyf
+ * @Date 2021-01-14 9:47
+ */
 @SpringBootApplication
 @RestController
 @MapperScan("com.example.system.mapper")
 @ComponentScan("com.example")
-public class TestApplication {
+public class SystemApplication {
 
     @RequestMapping("/")
     public String hello() {
@@ -19,7 +24,7 @@ public class TestApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(TestApplication.class, args);
+        SpringApplication.run(SystemApplication.class, args);
     }
 
 }

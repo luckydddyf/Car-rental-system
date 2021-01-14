@@ -18,23 +18,33 @@ import java.util.Date;
 @Data
 @TableName("t_gift")
 public class Gift{
-
+    /**
+     * 套餐id
+     */
     @TableId(value = "int_id", type = IdType.AUTO)
     private Integer id;
-
+    /**
+     * 套餐名
+     */
     @TableField("name")
     private String name;
-
+    /**
+     * 套餐描述
+     */
     @TableField("desc")
     private String desc;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    /**
+     * 套餐开始时间
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @TableField("start_time")
     private Date startTime;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    /**
+     * 套餐结束时间
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @TableField("end_time")
     private Date endTime;
 

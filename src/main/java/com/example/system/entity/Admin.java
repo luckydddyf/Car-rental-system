@@ -15,22 +15,34 @@ import lombok.Data;
 @Data
 @TableName("t_admin")
 public class Admin{
-
+    /**
+     * 管理员id
+     */
     @TableId(value = "int_id", type = IdType.AUTO)
     private Integer id;
-
+    /**
+     * 管理员账号
+     */
     @TableField("account")
     private String account;
-
+    /**
+     * 管理员密码
+     */
     @TableField("password")
     private String password;
-
+    /**
+     * 管理员姓名
+     */
     @TableField("name")
     private String name;
-
+    /**
+     * 管理员性别
+     */
     @TableField("sex")
     private char sex;
-
+    /**
+     * 管理员年龄
+     */
     @TableField("age")
     private Integer age;
 }
