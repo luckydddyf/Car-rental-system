@@ -13,6 +13,6 @@ import lombok.Data;
 public class FrontCarPageOutputDTO {
 
     @ApiModelProperty("汽车信息分页列表")
-    private Page<FrontCarItemDTO> frontCarPage;
+    private Page<FrontCarItemDTO> page;
 
 }

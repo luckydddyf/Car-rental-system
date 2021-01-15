@@ -4,6 +4,8 @@ import com.example.system.entity.dto.car.CarAlertDTO;
 import com.example.system.entity.dto.car.CarInputDTO;
 import com.example.system.entity.dto.gift.GiftAlertDTO;
 import com.example.system.entity.dto.gift.GiftInputDTO;
+import com.example.system.entity.dto.order.FrontOrderPageOutputDTO;
+import com.example.system.entity.dto.order.OrderPageInputDTO;
 import com.example.system.entity.dto.user.FrontUserPageOutputDTO;
 import com.example.system.entity.dto.user.UserAlertDTO;
 import com.example.system.entity.dto.user.UserPageInputDTO;
@@ -20,6 +22,12 @@ public interface AdminService {
      * @return 用户信息列表
      */
     FrontUserPageOutputDTO userList(UserPageInputDTO inputDTO);
+    /**
+     *
+     * @param inputDTO 搜索条件
+     * @return 订单信息列表
+     */
+    FrontOrderPageOutputDTO orderList(OrderPageInputDTO inputDTO);
     /**
      * 新增车辆信息
      * @param inputDTO 车辆信息插入DTO

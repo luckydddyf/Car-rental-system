@@ -12,5 +12,5 @@ import lombok.Data;
 @Data
 public class FrontUserPageOutputDTO {
     @ApiModelProperty("用户信息分页列表")
-    private Page<FrontUserItemDTO> frontUserPage;
+    private Page<FrontUserItemDTO> page;
 }

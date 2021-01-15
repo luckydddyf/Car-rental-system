@@ -42,6 +42,7 @@ public interface UserService {
 
     /**
      * 在线下单
+     * @param inputDTO 在线下单DTO
      */
     void orderOnline(OrderInputDTO inputDTO);
 

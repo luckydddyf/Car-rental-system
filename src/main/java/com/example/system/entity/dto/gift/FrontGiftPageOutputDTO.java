@@ -1,5 +1,7 @@
 package com.example.system.entity.dto.gift;
 
+import com.baomidou.mybatisplus.plugins.Page;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -9,4 +11,7 @@ import lombok.Data;
  */
 @Data
 public class FrontGiftPageOutputDTO {
+
+    @ApiModelProperty("汽车信息分页列表")
+    private Page<FrontGiftItemDTO> page;
 }

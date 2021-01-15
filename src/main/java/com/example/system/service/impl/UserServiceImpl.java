@@ -1,7 +1,10 @@
 package com.example.system.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.example.system.entity.Car;
+import com.example.system.entity.Gift;
 import com.example.system.entity.Order;
 import com.example.system.entity.User;
 import com.example.system.entity.dto.car.FrontCarItemDTO;
@@ -14,6 +17,7 @@ import com.example.system.entity.dto.user.UserSelfAlertDTO;
 import com.example.system.entity.dto.car.CarPageInputDTO;
 import com.example.system.entity.dto.car.FrontCarPageOutputDTO;
 import com.example.system.mapper.CarMapper;
+import com.example.system.mapper.GiftMapper;
 import com.example.system.mapper.OrderMapper;
 import com.example.system.mapper.UserMapper;
 import com.example.system.service.UserService;
@@ -24,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @Description
@@ -39,25 +44,57 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private CarMapper carMapper;
     @Autowired
+    private GiftMapper giftMapper;
+    @Autowired
     private OrderMapper orderMapper;
 
     @Override
     public FrontGiftPageOutputDTO giftList(GiftPageInputDTO inputDTO){
         FrontGiftPageOutputDTO dto = new FrontGiftPageOutputDTO();
         Page<FrontGiftItemDTO> page = new Page<>(inputDTO.getCurrent(),inputDTO.getSize());
-        List<FrontGiftItemDTO> giftList = new ArrayList<>();
-
-        page.setRecords(giftList);
-        return  dto;
+        List<FrontGiftItemDTO> list = new ArrayList<>();
+        Wrapper<Gift> giftWrapper = new EntityWrapper<>();
+        giftWrapper.like("name",inputDTO.getName());
+        List<Gift> giftList = giftMapper.mixList(giftWrapper,page);
+        Optional.ofNullable(giftList)
+                .ifPresent(giftLists -> {
+                    giftList.forEach(gift -> {
+                        FrontGiftItemDTO item = new FrontGiftItemDTO();
+                        item.setId(gift.getId());
+                        item.setName(gift.getName());
+                        item.setDesc(gift.getDesc());
+                        item.setStartTime(gift.getStartTime());
+                        item.setEndTime(gift.getEndTime());
+                        list.add(item);
+                    });
+                });
+        page.setRecords(list);
+        dto.setPage(page);
+        return dto;
     }
 
     @Override
     public FrontCarPageOutputDTO carList(CarPageInputDTO inputDTO){
         FrontCarPageOutputDTO dto = new FrontCarPageOutputDTO();
         Page<FrontCarItemDTO> page = new Page<>(inputDTO.getCurrent(),inputDTO.getSize());
-        List<FrontCarItemDTO> carList = new ArrayList<>();
-
-        page.setRecords(carList);
+        List<FrontCarItemDTO> list = new ArrayList<>();
+        Wrapper<Car> carWrapper = new EntityWrapper<>();
+        carWrapper.like("name",inputDTO.getName());
+        List<Car> carList = carMapper.mixList(carWrapper,page);
+        Optional.ofNullable(carList)
+                .ifPresent(carLists -> {
+                    carList.forEach(car -> {
+                        FrontCarItemDTO item = new FrontCarItemDTO();
+                        item.setId(car.getId());
+                        item.setName(car.getName());
+                        item.setPhoto_url(car.getPhotoUrl());
+                        item.setRent(car.getRent());
+                        item.setState(car.getState());
+                        list.add(item);
+                    });
+                });
+        page.setRecords(list);
+        dto.setPage(page);
         return dto;
     }
 
@@ -77,10 +114,13 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public void alertUserSelf(UserSelfAlertDTO alertDTO){
         User user = userMapper.selectById(alertDTO.getId());
-        user.setPassword(alertDTO.getPassword());
-        user.setName(alertDTO.getName());
-        user.setSex(alertDTO.getSex());
-        user.setAge(alertDTO.getAge());
+        Optional.ofNullable(user)
+                .ifPresent(alert -> {
+                    user.setPassword(alertDTO.getPassword());
+                    user.setName(alertDTO.getName());
+                    user.setSex(alertDTO.getSex());
+                    user.setAge(alertDTO.getAge());
+                });
         userMapper.updateById(user);
     }
 

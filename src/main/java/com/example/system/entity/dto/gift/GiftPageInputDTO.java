@@ -2,6 +2,7 @@ package com.example.system.entity.dto.gift;
 
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -11,4 +12,8 @@ import lombok.Data;
  */
 @Data
 public class GiftPageInputDTO extends Pagination{
+
+    @ApiModelProperty("套餐名称")
+    private String name;
+
 }
