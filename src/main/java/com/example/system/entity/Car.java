@@ -17,7 +17,7 @@ public class Car{
     /**
      * 汽车id
      */
-    @TableId(value = "int_id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 车名

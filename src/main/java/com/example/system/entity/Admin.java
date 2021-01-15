@@ -18,7 +18,7 @@ public class Admin{
     /**
      * 管理员id
      */
-    @TableId(value = "int_id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 管理员账号
@@ -39,7 +39,7 @@ public class Admin{
      * 管理员性别
      */
     @TableField("sex")
-    private char sex;
+    private Character sex;
     /**
      * 管理员年龄
      */

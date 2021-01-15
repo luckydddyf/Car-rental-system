@@ -14,7 +14,6 @@ import com.example.system.entity.dto.order.FrontOrderPageOutputDTO;
 import com.example.system.entity.dto.order.OrderPageInputDTO;
 import com.example.system.entity.dto.user.FrontUserItemDTO;
 import com.example.system.entity.dto.user.FrontUserPageOutputDTO;
-import com.example.system.entity.dto.user.UserAlertDTO;
 import com.example.system.entity.dto.user.UserPageInputDTO;
 import com.example.system.mapper.CarMapper;
 import com.example.system.mapper.GiftMapper;
@@ -82,6 +81,7 @@ public class AdminServiceImpl implements AdminService {
     public void addCar(CarInputDTO inputDTO){
         Car car = new Car();
         car.setName(inputDTO.getName());
+        car.setPhotoUrl(inputDTO.getPhotoUrl());
         car.setRent(inputDTO.getRent());
         car.setState(inputDTO.getState());
         carMapper.insert(car);
@@ -94,6 +94,7 @@ public class AdminServiceImpl implements AdminService {
         Optional.ofNullable(car)
                 .ifPresent(alert -> {
                     car.setName(alertDTO.getName());
+                    car.setPhotoUrl(alertDTO.getPhotoUrl());
                     car.setRent(alertDTO.getRent());
                     car.setState(alertDTO.getState());
                 });
@@ -134,9 +135,6 @@ public class AdminServiceImpl implements AdminService {
     public void deleteGift(Integer giftId){
         giftMapper.deleteById(giftId);
     }
-
-    @Override
-    public void alertUser(UserAlertDTO alertDTO){ }
 
     @Override
     public void deleteUser(Integer userId){

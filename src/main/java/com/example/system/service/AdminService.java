@@ -7,7 +7,6 @@ import com.example.system.entity.dto.gift.GiftInputDTO;
 import com.example.system.entity.dto.order.FrontOrderPageOutputDTO;
 import com.example.system.entity.dto.order.OrderPageInputDTO;
 import com.example.system.entity.dto.user.FrontUserPageOutputDTO;
-import com.example.system.entity.dto.user.UserAlertDTO;
 import com.example.system.entity.dto.user.UserPageInputDTO;
 
 /**
@@ -60,12 +59,6 @@ public interface AdminService {
      * @param giftId 套餐id
      */
     void deleteGift(Integer giftId);
-
-    /**
-     * 修改普通用户信息
-     * @param  alertDTO 用户信息修改DTO
-     */
-    void alertUser(UserAlertDTO alertDTO);
 
     /**
      * 删除普通用户信息

@@ -18,7 +18,7 @@ public class User{
     /**
      * 用户id
      */
-    @TableId(value = "int_id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 用户账号
@@ -39,7 +39,7 @@ public class User{
      * 用户性别
      */
     @TableField("sex")
-    private char sex;
+    private Character sex;
     /**
      * 用户年龄
      */

@@ -11,9 +11,6 @@ import lombok.Data;
 @Data
 public class OrderInputDTO {
 
-    @ApiModelProperty("订单id")
-    private Integer id;
-
     @ApiModelProperty("用户id")
     private Integer userId;
 

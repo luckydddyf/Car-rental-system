@@ -21,7 +21,7 @@ public class Gift{
     /**
      * 套餐id
      */
-    @TableId(value = "int_id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 套餐名

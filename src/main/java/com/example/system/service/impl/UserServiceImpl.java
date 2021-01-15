@@ -128,7 +128,10 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public void orderOnline(OrderInputDTO inputDTO){
         Car orderCar = carMapper.selectById(inputDTO.getCarId());
-        orderCar.setState(1);
+        Optional.ofNullable(orderCar)
+                .ifPresent(stateChange -> {
+                    orderCar.setState(1);
+                });
         carMapper.updateById(orderCar);
         Integer rent = orderCar.getRent();
         Order order = new Order();

@@ -14,19 +14,29 @@ import lombok.Data;
 @Data
 @TableName("t_order")
 public class Order {
-
-    @TableId(value = "int_id", type = IdType.AUTO)
+    /**
+     * 套餐id
+     */
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
-
+    /**
+     * 用户id
+     */
     @TableField("user_id")
     private Integer userId;
-
+    /**
+     * 汽车id
+     */
     @TableField("car_id")
     private Integer carId;
-
+    /**
+     * 租用天数
+     */
     @TableField("rental_day")
     private Integer rentalDay;
-
+    /**
+     * 租金
+     */
     @TableField("rental_money")
     private Integer rentalMoney;
 
