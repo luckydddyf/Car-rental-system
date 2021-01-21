@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,4 +31,14 @@ public interface OrderMapper extends BaseMapper<Order> {
             "from t_order o " +
             "where 1 = 1 ${ew.sqlSegment}")
     List<Order> mixList(@Param("ew") Wrapper<Order> ew, @Param("page") Page<FrontOrderItemDTO> page);
+
+    /**
+     * selectEndTime
+     * @param ew
+     * @return
+     */
+    @Select("select o.end_time endTime " +
+            "from t_order o " +
+            "where 1=1 ${ew.sqlSegment}")
+    Date selectEndTime(@Param("ew") Wrapper<Order> ew);
 }

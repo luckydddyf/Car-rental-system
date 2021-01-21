@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,12 +79,18 @@ public class UserServiceImpl implements UserService {
         FrontCarPageOutputDTO dto = new FrontCarPageOutputDTO();
         Page<FrontCarItemDTO> page = new Page<>(inputDTO.getCurrent(),inputDTO.getSize());
         List<FrontCarItemDTO> list = new ArrayList<>();
+        //修改到期的车辆状态
+        Wrapper<Car> carStateWrapper = new EntityWrapper<>();
+        carStateWrapper.eq("state",1);
+        List<Car> carList = carMapper.selectList(carStateWrapper);
+        updateCarState(carList);
+        //用户可根据车名查询
         Wrapper<Car> carWrapper = new EntityWrapper<>();
         carWrapper.like("name",inputDTO.getName());
-        List<Car> carList = carMapper.mixList(carWrapper,page);
-        Optional.ofNullable(carList)
+        List<Car> pageCarList = carMapper.mixList(carWrapper,page);
+        Optional.ofNullable(pageCarList)
                 .ifPresent(carLists -> {
-                    carList.forEach(car -> {
+                    pageCarList.forEach(car -> {
                         FrontCarItemDTO item = new FrontCarItemDTO();
                         item.setId(car.getId());
                         item.setName(car.getName());
@@ -146,5 +153,19 @@ public class UserServiceImpl implements UserService {
         Long time = (inputDTO.getEndTime().getTime()-inputDTO.getStartTime().getTime()) / (1000 * 3600 * 24);
         order.setRentalMoney(Integer.parseInt(String.valueOf(time)) * rent);
         orderMapper.insert(order);
+    }
+
+    private void updateCarState(List<Car> carList){
+        Date date = new Date();
+        for(int i = 0;i < carList.size();i++){
+            int carId = carList.get(i).getId();
+            Wrapper<Order> orderWrapper = new EntityWrapper<>();
+            orderWrapper.eq("car_id",carId);
+            Date endTime = orderMapper.selectEndTime(orderWrapper);
+            if(endTime.getTime() < date.getTime()){
+                carList.get(i).setState(0);
+                carMapper.updateById(carList.get(i));
+            }
+        }
     }
 }
