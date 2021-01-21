@@ -28,7 +28,7 @@ public interface GiftMapper extends BaseMapper<Gift> {
      * @param page
      * @return
      */
-    @Select("select g.id id,g.name name,g.desc desc,g.start_time startTime,g.end_time endTime " +
+    @Select("select g.id id,g.name,g.desc,g.start_time startTime,g.end_time endTime " +
             "from t_gift g " +
             "where 1 = 1 ${ew.sqlSegment}")
     List<Gift> mixList(@Param("ew") Wrapper<Gift> ew, @Param("page") Page<FrontGiftItemDTO> page);

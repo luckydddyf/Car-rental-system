@@ -26,7 +26,4 @@ public class CarInputDTO {
     @NotNull(message = "租金不能为空")
     private Integer rent;
 
-    @ApiModelProperty("状态|0=未租出|1=已租出")
-    @NotNull(message = "状态不能为空")
-    private Integer state;
 }

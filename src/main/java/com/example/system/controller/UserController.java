@@ -43,6 +43,12 @@ public class UserController {
         userService.alertUserSelf(alertDTO);
     }
 
+    @GetMapping("/alert/detail/{userId}")
+    @ApiOperation("个人信息回显")
+    public UserAlertOutputDTO userOutput(@PathVariable("userId") Integer userId){
+        return userService.userOutput(userId);
+    }
+
     @GetMapping("/delete/{userId}")
     @ApiOperation("删除普通用户")
     public void deleteUsers(@PathVariable("userId") Integer userId){

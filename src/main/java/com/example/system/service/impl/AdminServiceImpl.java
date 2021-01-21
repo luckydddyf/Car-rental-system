@@ -8,9 +8,11 @@ import com.example.system.entity.Gift;
 import com.example.system.entity.Order;
 import com.example.system.entity.User;
 import com.example.system.entity.dto.car.CarAlertDTO;
+import com.example.system.entity.dto.car.CarAlertOutputDTO;
 import com.example.system.entity.dto.car.CarDetailDTO;
 import com.example.system.entity.dto.car.CarInputDTO;
 import com.example.system.entity.dto.gift.GiftAlertDTO;
+import com.example.system.entity.dto.gift.GiftAlertOutputDTO;
 import com.example.system.entity.dto.gift.GiftInputDTO;
 import com.example.system.entity.dto.order.FrontOrderItemDTO;
 import com.example.system.entity.dto.order.FrontOrderPageOutputDTO;
@@ -32,7 +34,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 
 /**
  * @Description
@@ -129,7 +130,7 @@ public class AdminServiceImpl implements AdminService {
         car.setName(inputDTO.getName());
         car.setPhotoUrl(inputDTO.getPhotoUrl());
         car.setRent(inputDTO.getRent());
-        car.setState(inputDTO.getState());
+        car.setState(0);
         carMapper.insert(car);
     }
 
@@ -142,9 +143,18 @@ public class AdminServiceImpl implements AdminService {
                     car.setName(alertDTO.getName());
                     car.setPhotoUrl(alertDTO.getPhotoUrl());
                     car.setRent(alertDTO.getRent());
-                    car.setState(alertDTO.getState());
                 });
         carMapper.updateById(car);
+    }
+
+    @Override
+    public CarAlertOutputDTO carOutput(Integer carId){
+        CarAlertOutputDTO dto = new CarAlertOutputDTO();
+        Car car = carMapper.selectById(carId);
+        dto.setName(car.getName());
+        dto.setPhotoUrl(car.getPhotoUrl());
+        dto.setRent(car.getRent());
+        return dto;
     }
 
     @Override
@@ -175,6 +185,17 @@ public class AdminServiceImpl implements AdminService {
                     gift.setEndTime(alertDTO.getEndTime());
                 });
         giftMapper.updateById(gift);
+    }
+
+    @Override
+    public GiftAlertOutputDTO giftOutput(Integer giftId){
+        GiftAlertOutputDTO dto = new GiftAlertOutputDTO();
+        Gift gift = giftMapper.selectById(giftId);
+        dto.setName(gift.getName());
+        dto.setDesc(gift.getDesc());
+        dto.setStartTime(gift.getStartTime());
+        dto.setEndTime(gift.getEndTime());
+        return dto;
     }
 
     @Override

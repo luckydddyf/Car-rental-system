@@ -28,8 +28,8 @@ public interface UserMapper extends BaseMapper<User> {
      * @param page
      * @return
      */
-    @Select("select u.id id,u.account account,u.name name,u.sex sex,u.age age " +
-            "from t_user user " +
+    @Select("select u.id id,u.account account,u.name,u.sex sex,u.age age " +
+            "from t_user u " +
             "where 1 = 1 ${ew.sqlSegment}")
     List<User> mixList(@Param("ew") Wrapper<User> ew, @Param("page") Page<FrontUserItemDTO> page);
 }

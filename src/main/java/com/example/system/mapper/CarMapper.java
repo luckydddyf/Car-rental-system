@@ -26,7 +26,7 @@ public interface CarMapper extends BaseMapper<Car> {
      * @param page
      * @return
      */
-    @Select("select c.id id,c.name name,c.photo_url photoUrl,c.rent rent,c.state state " +
+    @Select("select c.id id,c.name,c.photo_url photoUrl,c.rent rent,c.state " +
             "from t_car c " +
             "where 1 = 1 ${ew.sqlSegment}")
     List<Car> mixList(@Param("ew") Wrapper<Car> ew, @Param("page") Page<FrontCarItemDTO> page);

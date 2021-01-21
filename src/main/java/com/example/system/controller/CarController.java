@@ -1,9 +1,6 @@
 package com.example.system.controller;
 
-import com.example.system.entity.dto.car.CarAlertDTO;
-import com.example.system.entity.dto.car.CarInputDTO;
-import com.example.system.entity.dto.car.CarPageInputDTO;
-import com.example.system.entity.dto.car.FrontCarPageOutputDTO;
+import com.example.system.entity.dto.car.*;
 import com.example.system.service.AdminService;
 import com.example.system.service.UserService;
 import io.swagger.annotations.Api;
@@ -45,6 +42,12 @@ public class CarController {
     @ApiOperation("修改车辆信息")
     public void alertCars(@RequestBody @Valid CarAlertDTO alertDTO){
         adminService.alertCar(alertDTO);
+    }
+
+    @GetMapping("/alert/detail/{carId}")
+    @ApiOperation("车辆信息回显")
+    public CarAlertOutputDTO carOutput(@PathVariable("carId") Integer carId){
+        return adminService.carOutput(carId);
     }
 
     @GetMapping("/delete/{carId}")

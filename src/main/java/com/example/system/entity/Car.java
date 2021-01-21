@@ -14,26 +14,31 @@ import lombok.Data;
 @Data
 @TableName("t_car")
 public class Car{
+
     /**
      * 汽车id
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
+
     /**
      * 车名
      */
     @TableField("name")
     private String name;
+
     /**
      * 照片url
      */
     @TableField("photo_url")
     private String photoUrl;
+
     /**
      * 日租金
      */
     @TableField("rent")
     private Integer rent;
+
     /**
      * 汽车状态|0=未租出|1=已租出
      */

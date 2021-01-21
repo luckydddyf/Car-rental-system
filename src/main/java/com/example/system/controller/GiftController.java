@@ -1,9 +1,6 @@
 package com.example.system.controller;
 
-import com.example.system.entity.dto.gift.FrontGiftPageOutputDTO;
-import com.example.system.entity.dto.gift.GiftAlertDTO;
-import com.example.system.entity.dto.gift.GiftInputDTO;
-import com.example.system.entity.dto.gift.GiftPageInputDTO;
+import com.example.system.entity.dto.gift.*;
 import com.example.system.service.AdminService;
 import com.example.system.service.UserService;
 import io.swagger.annotations.Api;
@@ -44,6 +41,12 @@ public class GiftController  {
     @ApiOperation("套餐修改")
     public void alertGifts(@RequestBody @Valid GiftAlertDTO alertDTO){
         adminService.alertGift(alertDTO);
+    }
+
+    @GetMapping("/alert/detail/{giftId}")
+    @ApiOperation("套餐信息回显")
+    public GiftAlertOutputDTO giftOutput(@PathVariable("giftId") Integer giftId){
+        return adminService.giftOutput(giftId);
     }
 
     @GetMapping("delete/{giftId}")

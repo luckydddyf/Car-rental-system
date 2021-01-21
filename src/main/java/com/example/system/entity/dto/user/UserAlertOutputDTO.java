@@ -6,16 +6,13 @@ import lombok.Data;
 /**
  * @Description
  * @Author luckydddyf
- * @Date 2021-01-12 15:54
+ * @Date 2021-01-21 13:45
  */
 @Data
-public class FrontUserItemDTO {
+public class UserAlertOutputDTO {
 
-    @ApiModelProperty("用户id")
-    private Integer id;
-
-    @ApiModelProperty("用户账号")
-    private String account;
+    @ApiModelProperty("密码")
+    private String password;
 
     @ApiModelProperty("姓名")
     private String name;
@@ -25,5 +22,4 @@ public class FrontUserItemDTO {
 
     @ApiModelProperty("年龄")
     private Integer age;
-
 }

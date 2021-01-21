@@ -26,11 +26,8 @@ public class CarAlertDTO {
     @NotBlank(message = "汽车照片不能为空")
     private String photoUrl;
 
-    @ApiModelProperty("租金")
-    @NotNull(message = "租金不能为空")
+    @ApiModelProperty("日租金")
+    @NotNull(message = "日租金不能为空")
     private Integer rent;
 
-    @ApiModelProperty("状态|0=未租出|1=已租出")
-    @NotNull(message = "状态不能为空")
-    private Integer state;
 }

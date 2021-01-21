@@ -18,21 +18,25 @@ import java.util.Date;
 @Data
 @TableName("t_order")
 public class Order {
+
     /**
      * 套餐id
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
+
     /**
      * 用户id
      */
     @TableField("user_id")
     private Integer userId;
+
     /**
      * 汽车id
      */
     @TableField("car_id")
     private Integer carId;
+
     /**
      * 起租时间
      */
@@ -40,6 +44,7 @@ public class Order {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @TableField("start_time")
     private Date startTime;
+
     /**
      * 截止时间
      */
@@ -47,6 +52,7 @@ public class Order {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @TableField("end_time")
     private Date endTime;
+
     /**
      * 租金
      */

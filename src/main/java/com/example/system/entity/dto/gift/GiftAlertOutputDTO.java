@@ -9,18 +9,15 @@ import java.util.Date;
 /**
  * @Description
  * @Author luckydddyf
- * @Date 2021-01-13 10:12
+ * @Date 2021-01-21 13:44
  */
 @Data
-public class FrontGiftItemDTO {
-
-    @ApiModelProperty("套餐id")
-    private Integer id;
+public class GiftAlertOutputDTO {
 
     @ApiModelProperty("套餐名称")
     private String name;
 
-    @ApiModelProperty("套餐描述")
+    @ApiModelProperty("套餐内容")
     private String desc;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
@@ -28,7 +25,6 @@ public class FrontGiftItemDTO {
     private Date startTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    @ApiModelProperty
+    @ApiModelProperty("结束时间")
     private Date endTime;
-
 }
