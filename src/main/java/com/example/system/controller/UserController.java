@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/delete/{userId}")
-    @ApiOperation("删除普通用户信息")
+    @ApiOperation("删除普通用户")
     public void deleteUsers(@PathVariable("userId") Integer userId){
         adminService.deleteUser(userId);
     }

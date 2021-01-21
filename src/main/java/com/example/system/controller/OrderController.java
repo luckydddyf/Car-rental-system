@@ -1,17 +1,16 @@
 package com.example.system.controller;
 
+import com.example.system.entity.dto.car.CarDetailDTO;
 import com.example.system.entity.dto.order.FrontOrderPageOutputDTO;
 import com.example.system.entity.dto.order.OrderInputDTO;
 import com.example.system.entity.dto.order.OrderPageInputDTO;
+import com.example.system.entity.dto.user.UserDetailDTO;
 import com.example.system.service.AdminService;
 import com.example.system.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Description
@@ -38,5 +37,17 @@ public class OrderController {
     @ApiOperation("在线下单")
     public void addOrders(@RequestBody OrderInputDTO inputDTO){
         userService.orderOnline(inputDTO);
+    }
+
+    @GetMapping("/list/userDetail/{userId}")
+    @ApiOperation("客户详情")
+    public UserDetailDTO userDetail(@PathVariable("userId") Integer userId){
+        return adminService.userDetail(userId);
+    }
+
+    @GetMapping("/list/carDetail/{carId}")
+    @ApiOperation("汽车详情")
+    public CarDetailDTO carDetail(@PathVariable("carId") Integer carId){
+        return adminService.carDetail(carId);
     }
 }

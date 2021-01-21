@@ -4,7 +4,11 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 /**
  * @Description
@@ -30,10 +34,19 @@ public class Order {
     @TableField("car_id")
     private Integer carId;
     /**
-     * 租用天数
+     * 起租时间
      */
-    @TableField("rental_day")
-    private Integer rentalDay;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @TableField("start_time")
+    private Date startTime;
+    /**
+     * 截止时间
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @TableField("end_time")
+    private Date endTime;
     /**
      * 租金
      */

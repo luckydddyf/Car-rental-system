@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @Description 解决跨域问题
+ * @Description
  * @Author luckydddyf
  * @Date 2021-01-14 9:47
  */

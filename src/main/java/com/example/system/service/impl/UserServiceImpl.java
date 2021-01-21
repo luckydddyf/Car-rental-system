@@ -127,18 +127,24 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void orderOnline(OrderInputDTO inputDTO){
+        //修改汽车状态
+        Wrapper<Car> carWrapper = new EntityWrapper<>();
+        carWrapper.eq("id",inputDTO.getCarId());
         Car orderCar = carMapper.selectById(inputDTO.getCarId());
         Optional.ofNullable(orderCar)
                 .ifPresent(stateChange -> {
                     orderCar.setState(1);
                 });
         carMapper.updateById(orderCar);
+        //创建新订单
         Integer rent = orderCar.getRent();
         Order order = new Order();
         order.setUserId(inputDTO.getUserId());
         order.setCarId(inputDTO.getCarId());
-        order.setRentalDay(inputDTO.getRentalDay());
-        order.setRentalMoney(inputDTO.getRentalDay() * rent);
+        order.setStartTime(inputDTO.getStartTime());
+        order.setEndTime(inputDTO.getEndTime());
+        Long time = (inputDTO.getEndTime().getTime()-inputDTO.getStartTime().getTime()) / (1000 * 3600 * 24);
+        order.setRentalMoney(Integer.parseInt(String.valueOf(time)) * rent);
         orderMapper.insert(order);
     }
 }

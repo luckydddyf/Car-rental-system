@@ -5,18 +5,23 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.example.system.entity.Car;
 import com.example.system.entity.Gift;
+import com.example.system.entity.Order;
 import com.example.system.entity.User;
 import com.example.system.entity.dto.car.CarAlertDTO;
+import com.example.system.entity.dto.car.CarDetailDTO;
 import com.example.system.entity.dto.car.CarInputDTO;
 import com.example.system.entity.dto.gift.GiftAlertDTO;
 import com.example.system.entity.dto.gift.GiftInputDTO;
+import com.example.system.entity.dto.order.FrontOrderItemDTO;
 import com.example.system.entity.dto.order.FrontOrderPageOutputDTO;
 import com.example.system.entity.dto.order.OrderPageInputDTO;
 import com.example.system.entity.dto.user.FrontUserItemDTO;
 import com.example.system.entity.dto.user.FrontUserPageOutputDTO;
+import com.example.system.entity.dto.user.UserDetailDTO;
 import com.example.system.entity.dto.user.UserPageInputDTO;
 import com.example.system.mapper.CarMapper;
 import com.example.system.mapper.GiftMapper;
+import com.example.system.mapper.OrderMapper;
 import com.example.system.mapper.UserMapper;
 import com.example.system.service.AdminService;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +49,8 @@ public class AdminServiceImpl implements AdminService {
     private UserMapper userMapper;
     @Autowired
     private GiftMapper giftMapper;
+    @Autowired
+    private OrderMapper orderMapper;
 
     @Override
     public FrontUserPageOutputDTO userList(UserPageInputDTO inputDTO){
@@ -73,6 +80,45 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public FrontOrderPageOutputDTO orderList(OrderPageInputDTO inputDTO){
         FrontOrderPageOutputDTO dto = new FrontOrderPageOutputDTO();
+        Page<FrontOrderItemDTO> page = new Page<>(inputDTO.getCurrent(),inputDTO.getSize());
+        List<FrontOrderItemDTO> list = new ArrayList<>();
+        Wrapper<Order> orderWrapper = new EntityWrapper<>();
+        orderWrapper.ge("start_time",inputDTO.getStartTime())
+                    .le("end_time",inputDTO.getEndTime());
+        List<Order> orderList = orderMapper.mixList(orderWrapper,page);
+        orderList.forEach(order -> {
+            FrontOrderItemDTO item = new FrontOrderItemDTO();
+            item.setId(order.getId());
+            item.setStartTime(order.getStartTime());
+            item.setEndTime(order.getEndTime());
+            item.setUserId(order.getUserId());
+            item.setCarId(order.getCarId());
+            item.setRentalMoney(order.getRentalMoney());
+            list.add(item);
+        });
+        page.setRecords(list);
+        dto.setPage(page);
+        return dto;
+    }
+
+    @Override
+    public UserDetailDTO userDetail(Integer userId){
+        UserDetailDTO dto = new UserDetailDTO();
+        User user = userMapper.selectById(userId);
+        dto.setName(user.getName());
+        dto.setAccount(user.getAccount());
+        dto.setSex(user.getSex());
+        dto.setAge(user.getAge());
+        return dto;
+    }
+
+    @Override
+    public CarDetailDTO carDetail(Integer carId){
+        CarDetailDTO dto = new CarDetailDTO();
+        Car car = carMapper.selectById(carId);
+        dto.setName(car.getName());
+        dto.setPhotoUrl(car.getPhotoUrl());
+        dto.setRent(car.getRent());
         return dto;
     }
 

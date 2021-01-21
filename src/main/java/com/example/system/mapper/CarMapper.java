@@ -30,4 +30,5 @@ public interface CarMapper extends BaseMapper<Car> {
             "from t_car c " +
             "where 1 = 1 ${ew.sqlSegment}")
     List<Car> mixList(@Param("ew") Wrapper<Car> ew, @Param("page") Page<FrontCarItemDTO> page);
+
 }

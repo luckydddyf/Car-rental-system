@@ -15,12 +15,16 @@ public class FrontGiftItemDTO {
 
     @ApiModelProperty("套餐id")
     private Integer id;
+
     @ApiModelProperty("套餐名称")
     private String name;
+
     @ApiModelProperty("套餐描述")
     private String desc;
+
     @ApiModelProperty("开始时间")
     private Date startTime;
+
     @ApiModelProperty
     private Date endTime;
 
