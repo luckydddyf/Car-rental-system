@@ -49,7 +49,7 @@ public class GiftController  {
         return adminService.giftOutput(giftId);
     }
 
-    @GetMapping("delete/{giftId}")
+    @DeleteMapping("delete/{giftId}")
     @ApiOperation("套餐删除")
     public void deleteGifts(@PathVariable("giftId") Integer giftId){
         adminService.deleteGift(giftId);
