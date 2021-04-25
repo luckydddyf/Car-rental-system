@@ -18,10 +18,6 @@ public class CarInputDTO {
     @NotBlank(message = "汽车名称不能为空")
     private String name;
 
-    @ApiModelProperty("汽车照片")
-    @NotBlank(message = "汽车照片不能为空")
-    private String photoUrl;
-
     @ApiModelProperty("租金")
     @NotNull(message = "租金不能为空")
     private Integer rent;

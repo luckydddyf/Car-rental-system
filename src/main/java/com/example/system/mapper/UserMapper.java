@@ -22,6 +22,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface UserMapper extends BaseMapper<User> {
+
     /**
      *  mixList
      * @param ew 条件构造器
@@ -32,4 +33,14 @@ public interface UserMapper extends BaseMapper<User> {
             "from t_user u " +
             "where 1 = 1 ${ew.sqlSegment}")
     List<User> mixList(@Param("ew") Wrapper<User> ew, @Param("page") Page<FrontUserItemDTO> page);
+
+    /**
+     * selectPassword
+     * @param ew 条件构造器
+     * @return
+     */
+    @Select("select u.password password " +
+            "from t_user u " +
+            "where 1 = 1 ${ew.sqlSegment}")
+    String selectPassword(@Param("ew") Wrapper<User> ew);
 }

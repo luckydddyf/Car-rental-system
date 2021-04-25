@@ -14,9 +14,12 @@ spring:
 
 logging:
   config: classpath:logback.xml
+  level:
+    io.swagger.models.parameters.AbstractSerializableParameter: error
 
 swagger:
   enable: true
+
 
 #mybatis-plus:
 #  global-config:

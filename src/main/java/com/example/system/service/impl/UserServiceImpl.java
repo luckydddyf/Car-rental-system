@@ -25,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,13 +51,13 @@ public class UserServiceImpl implements UserService {
     private OrderMapper orderMapper;
 
     @Override
-    public FrontGiftPageOutputDTO giftList(GiftPageInputDTO inputDTO){
+    public FrontGiftPageOutputDTO giftList(GiftPageInputDTO inputDTO) {
         FrontGiftPageOutputDTO dto = new FrontGiftPageOutputDTO();
-        Page<FrontGiftItemDTO> page = new Page<>(inputDTO.getCurrent(),inputDTO.getSize());
+        Page<FrontGiftItemDTO> page = new Page<>(inputDTO.getCurrent(), inputDTO.getSize());
         List<FrontGiftItemDTO> list = new ArrayList<>();
         Wrapper<Gift> giftWrapper = new EntityWrapper<>();
-        giftWrapper.like("name",inputDTO.getName());
-        List<Gift> giftList = giftMapper.mixList(giftWrapper,page);
+        giftWrapper.like("name", inputDTO.getName());
+        List<Gift> giftList = giftMapper.mixList(giftWrapper, page);
         Optional.ofNullable(giftList)
                 .ifPresent(giftLists -> {
                     giftList.forEach(gift -> {
@@ -75,26 +76,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public FrontCarPageOutputDTO carList(CarPageInputDTO inputDTO){
+    public FrontCarPageOutputDTO carList(CarPageInputDTO inputDTO) {
         FrontCarPageOutputDTO dto = new FrontCarPageOutputDTO();
-        Page<FrontCarItemDTO> page = new Page<>(inputDTO.getCurrent(),inputDTO.getSize());
+        Page<FrontCarItemDTO> page = new Page<>(inputDTO.getCurrent(), inputDTO.getSize());
         List<FrontCarItemDTO> list = new ArrayList<>();
         //修改到期的车辆状态
         Wrapper<Car> carStateWrapper = new EntityWrapper<>();
-        carStateWrapper.eq("state",1);
+        carStateWrapper.eq("state", 1);
         List<Car> carList = carMapper.selectList(carStateWrapper);
         updateCarState(carList);
         //用户可根据车名查询
         Wrapper<Car> carWrapper = new EntityWrapper<>();
-        carWrapper.like("name",inputDTO.getName());
-        List<Car> pageCarList = carMapper.mixList(carWrapper,page);
+        carWrapper.like("name", inputDTO.getName());
+        List<Car> pageCarList = carMapper.mixList(carWrapper, page);
         Optional.ofNullable(pageCarList)
                 .ifPresent(carLists -> {
                     pageCarList.forEach(car -> {
                         FrontCarItemDTO item = new FrontCarItemDTO();
                         item.setId(car.getId());
                         item.setName(car.getName());
-                        item.setPhoto_url(car.getPhotoUrl());
+                        item.setPhotoUrl(car.getPhotoUrl());
                         item.setRent(car.getRent());
                         item.setState(car.getState());
                         list.add(item);
@@ -107,7 +108,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void addUser(UserInputDTO inputDTO){
+    public void addUser(UserInputDTO inputDTO) {
         User user = new User();
         user.setAccount(inputDTO.getAccount());
         user.setPassword(inputDTO.getPassword());
@@ -119,7 +120,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void alertUserSelf(UserSelfAlertDTO alertDTO){
+    public void alertUserSelf(UserSelfAlertDTO alertDTO) {
         User user = userMapper.selectById(alertDTO.getId());
         Optional.ofNullable(user)
                 .ifPresent(alert -> {
@@ -133,10 +134,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void orderOnline(OrderInputDTO inputDTO){
+    public void orderOnline(OrderInputDTO inputDTO) {
         //修改汽车状态
         Wrapper<Car> carWrapper = new EntityWrapper<>();
-        carWrapper.eq("id",inputDTO.getCarId());
+        carWrapper.eq("id", inputDTO.getCarId());
         Car orderCar = carMapper.selectById(inputDTO.getCarId());
         Optional.ofNullable(orderCar)
                 .ifPresent(stateChange -> {
@@ -150,22 +151,32 @@ public class UserServiceImpl implements UserService {
         order.setCarId(inputDTO.getCarId());
         order.setStartTime(inputDTO.getStartTime());
         order.setEndTime(inputDTO.getEndTime());
-        Long time = (inputDTO.getEndTime().getTime()-inputDTO.getStartTime().getTime()) / (1000 * 3600 * 24);
+        Long time = (inputDTO.getEndTime().getTime() - inputDTO.getStartTime().getTime()) / (1000 * 3600 * 24);
         order.setRentalMoney(Integer.parseInt(String.valueOf(time)) * rent);
         orderMapper.insert(order);
     }
 
-    private void updateCarState(List<Car> carList){
+    private void updateCarState(List<Car> carList) {
         Date date = new Date();
-        for(int i = 0;i < carList.size();i++){
+        for (int i = 0; i < carList.size(); i++) {
             int carId = carList.get(i).getId();
             Wrapper<Order> orderWrapper = new EntityWrapper<>();
-            orderWrapper.eq("car_id",carId);
+            orderWrapper.eq("car_id", carId);
             Date endTime = orderMapper.selectEndTime(orderWrapper);
-            if(endTime.getTime() < date.getTime()){
+            if (endTime.getTime() < date.getTime()) {
                 carList.get(i).setState(0);
                 carMapper.updateById(carList.get(i));
             }
         }
+    }
+
+    public boolean loadIn(String account, String password) {
+        Wrapper<User> userWrapper = new EntityWrapper<>();
+        userWrapper.eq(!StringUtils.isEmpty(account), "account", account);
+        String realPassword = userMapper.selectPassword(userWrapper);
+        if(!realPassword.equals(password)){
+            return false;
+        }
+        return true;
     }
 }

@@ -30,7 +30,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +46,8 @@ import java.util.Optional;
 @Service
 @Slf4j
 public class AdminServiceImpl implements AdminService {
+
+    private final String IMG_PATH = "D:/project/car-rental-system/src/main/resources/static/image";
 
     @Autowired
     private CarMapper carMapper;
@@ -120,15 +125,24 @@ public class AdminServiceImpl implements AdminService {
         dto.setName(car.getName());
         dto.setPhotoUrl(car.getPhotoUrl());
         dto.setRent(car.getRent());
+        dto.setState(car.getState());
         return dto;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void addCar(CarInputDTO inputDTO){
+    public void addCar(CarInputDTO inputDTO,MultipartFile file){
         Car car = new Car();
         car.setName(inputDTO.getName());
-        car.setPhotoUrl(inputDTO.getPhotoUrl());
+        if(!file.isEmpty()) {
+            try {
+                String filePath = IMG_PATH  + "/" + file.getOriginalFilename();
+                file.transferTo(new File(filePath));
+                car.setPhotoUrl(filePath);
+            } catch (IOException e) {
+                log.info("-------------------------------io异常");
+            }
+        }
         car.setRent(inputDTO.getRent());
         car.setState(0);
         carMapper.insert(car);
@@ -136,13 +150,21 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void alertCar(CarAlertDTO alertDTO){
+    public void alertCar(CarAlertDTO alertDTO,MultipartFile file){
         Car car = carMapper.selectById(alertDTO.getId());
         Optional.ofNullable(car)
                 .ifPresent(alert -> {
                     car.setName(alertDTO.getName());
-                    car.setPhotoUrl(alertDTO.getPhotoUrl());
                     car.setRent(alertDTO.getRent());
+                    if(!file.isEmpty()) {
+                        try {
+                            String filePath = IMG_PATH  + "/" + file.getOriginalFilename();
+                            file.transferTo(new File(filePath));
+                            car.setPhotoUrl(filePath);
+                        } catch (IOException e) {
+                            log.info("-------------------------------io异常");
+                        }
+                    }
                 });
         carMapper.updateById(car);
     }

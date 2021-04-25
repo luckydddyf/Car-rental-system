@@ -18,7 +18,7 @@ public class FrontCarItemDTO {
     private String name;
 
     @ApiModelProperty("汽车照片")
-    private String photo_url;
+    private String photoUrl;
 
     @ApiModelProperty("日租金")
     private Integer rent;
