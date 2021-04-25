@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -34,18 +35,18 @@ public class CarController {
 
     @PostMapping("/add")
     @ApiOperation("新增车辆信息")
-    public void addCars(@RequestBody @Valid CarInputDTO inputDTO){
-        adminService.addCar(inputDTO);
+    public void addCars(@Valid CarInputDTO inputDTO,MultipartFile file) {
+        adminService.addCar(inputDTO,file);
     }
 
     @PostMapping("/alert")
     @ApiOperation("修改车辆信息")
-    public void alertCars(@RequestBody @Valid CarAlertDTO alertDTO){
-        adminService.alertCar(alertDTO);
+    public void alertCars(@Valid CarAlertDTO alertDTO,MultipartFile file){
+        adminService.alertCar(alertDTO,file);
     }
 
     @GetMapping("/alert/detail/{carId}")
-    @ApiOperation("车辆信息回显")
+    @ApiOperation("车辆信息详情")
     public CarAlertOutputDTO carOutput(@PathVariable("carId") Integer carId){
         return adminService.carOutput(carId);
     }

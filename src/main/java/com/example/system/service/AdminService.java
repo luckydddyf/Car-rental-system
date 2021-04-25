@@ -12,6 +12,9 @@ import com.example.system.entity.dto.order.OrderPageInputDTO;
 import com.example.system.entity.dto.user.FrontUserPageOutputDTO;
 import com.example.system.entity.dto.user.UserDetailDTO;
 import com.example.system.entity.dto.user.UserPageInputDTO;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**
  * @Description
@@ -51,19 +54,21 @@ public interface AdminService {
     /**
      * 新增车辆信息
      * @param inputDTO 车辆信息插入DTO
+     * @param file 上传汽车图片
      */
-    void addCar(CarInputDTO inputDTO);
+    void addCar(CarInputDTO inputDTO,MultipartFile file);
 
     /**
      * 修改车辆信息
      * @param  alertDTO 车辆信息修改DTO
+     * @param  file 上传汽车图片
      */
-    void alertCar(CarAlertDTO alertDTO);
+    void alertCar(CarAlertDTO alertDTO,MultipartFile file);
 
     /**
-     * 车辆信息回显
+     * 车辆信息详情
      * @param carId 汽车id
-     * @return 车辆信息回显
+     * @return 车辆信息详情
      */
     CarAlertOutputDTO carOutput(Integer carId);
 
@@ -86,9 +91,9 @@ public interface AdminService {
     void alertGift(GiftAlertDTO alertDTO);
 
     /**
-     * 套餐信息回显
+     * 套餐信息详情
      * @param giftId 套餐id
-     * @return 套餐信息回显
+     * @return 套餐信息详情
      */
     GiftAlertOutputDTO giftOutput(Integer giftId);
 

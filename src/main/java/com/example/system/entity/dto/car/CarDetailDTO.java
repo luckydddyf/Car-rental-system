@@ -20,4 +20,7 @@ public class CarDetailDTO {
     @ApiModelProperty("日租金")
     private Integer rent;
 
+    @ApiModelProperty("汽车状态")
+    private Integer state;
+
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @Description
@@ -20,6 +21,7 @@ public class UserSelfAlertDTO {
 
     @ApiModelProperty("密码")
     @NotBlank(message = "密码不能为空")
+    @Size(min = 6,max = 11,message = "密码长度必须是6-11个字符")
     private String password;
 
     @ApiModelProperty("姓名")

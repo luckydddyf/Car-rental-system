@@ -44,7 +44,7 @@ public class GiftController  {
     }
 
     @GetMapping("/alert/detail/{giftId}")
-    @ApiOperation("套餐信息回显")
+    @ApiOperation("套餐信息详情")
     public GiftAlertOutputDTO giftOutput(@PathVariable("giftId") Integer giftId){
         return adminService.giftOutput(giftId);
     }

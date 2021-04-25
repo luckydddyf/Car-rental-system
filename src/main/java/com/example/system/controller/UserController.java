@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/alert/detail/{userId}")
-    @ApiOperation("个人信息回显")
+    @ApiOperation("个人信息详情")
     public UserAlertOutputDTO userOutput(@PathVariable("userId") Integer userId){
         return userService.userOutput(userId);
     }
