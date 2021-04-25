@@ -49,7 +49,7 @@ public class UserController {
         return userService.userOutput(userId);
     }
 
-    @GetMapping("/delete/{userId}")
+    @DeleteMapping("/delete/{userId}")
     @ApiOperation("删除普通用户")
     public void deleteUsers(@PathVariable("userId") Integer userId){
         adminService.deleteUser(userId);

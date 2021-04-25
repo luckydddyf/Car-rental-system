@@ -51,7 +51,7 @@ public class CarController {
         return adminService.carOutput(carId);
     }
 
-    @GetMapping("/delete/{carId}")
+    @DeleteMapping("/delete/{carId}")
     @ApiOperation("删除车辆信息")
     public void deleteCars(@PathVariable("carId") Integer carId){
         adminService.deleteCar(carId);
